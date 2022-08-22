@@ -1,6 +1,6 @@
 body {
     font-weight: 800;
-    font-family: Nunito;
+    font-family: 'Nunito Sans';
     margin: 0;
     background-color: #fafafa;
 }
@@ -142,7 +142,8 @@ span {
 
 .filter .fa-solid {
     margin: 0px;
-    /*font-weight: lighter;*/
+    margin-left: -1px;
+    font-weight: lighter;
 }
 
 .options {
