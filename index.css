@@ -1,0 +1,85 @@
+body {
+    font-weight: 800;
+    font-family: 'Nunito Sans';
+}
+
+.navbar h1{
+    font-size: 26px;
+    font-weight: bold;
+}
+.search {
+    width: 500px;
+}
+
+.filter {
+    width: 200px;
+}
+
+a, a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+.gx-5{
+    --bs-gutter-x: 5rem;
+}
+
+.card{
+    background-color: #fafafafa;
+    margin-bottom: 70px;
+}
+.card-img-top{
+    object-fit: cover;
+    height: 160px;
+}
+
+.card-body{
+border-bottom-left-radius: 5px;
+border-bottom-right-radius: 5px
+}
+
+.fs-6{
+ font-size: .9rem!important;
+}
+.control {
+    margin-left: 72px;
+    margin-right: 72px;
+}
+
+@media only screen and (max-width: 862px) {
+    .search{
+        margin-bottom: 35px;
+    }
+}
+
+@media only screen and (max-width: 519px) {
+    .navbar h1{
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .navbar .me-4{
+        font-size: 14px;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .search{
+        width: 100%;
+    }
+    .control{
+        width: 70%;
+        margin-left: 39px;
+    }
+    .navbar{
+        padding-right: 15px !important;
+        padding-left: 15px !important;
+    }
+    .navbar h1{
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .margin-sm{
+        margin-right: 60px;
+        margin-left: 60px;
+    }
+}
