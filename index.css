@@ -41,17 +41,28 @@ border-bottom-right-radius: 5px
 .fs-6{
  font-size: .9rem!important;
 }
-.control {
+
+.control-start{
     margin-left: 72px;
+}
+
+.control-end{
     margin-right: 72px;
 }
 
 @media only screen and (max-width: 862px) {
     .search{
-        margin-bottom: 35px;
+        width: 300px;
+        /*margin-bottom: 35px;*/
     }
 }
 
+@media only screen and (max-width: 643px) {
+
+    .search{
+        margin-bottom: 35px;
+    }
+}
 @media only screen and (max-width: 519px) {
     .navbar h1{
         font-size: 20px;
@@ -65,14 +76,18 @@ border-bottom-right-radius: 5px
     .search{
         width: 100%;
     }
-    .control{
-        width: 70%;
+    .control-start{
         margin-left: 39px;
     }
-    .navbar{
-        padding-right: 15px !important;
-        padding-left: 15px !important;
+
+    .control-end{
+        font-size: 14px;
+        margin-right: 39px;
     }
+    .control{
+        width: 70%;
+    }
+
     .navbar h1{
         font-size: 16px;
         font-weight: bold;
@@ -81,5 +96,68 @@ border-bottom-right-radius: 5px
     .margin-sm{
         margin-right: 60px;
         margin-left: 60px;
+    }
+}
+
+.back{
+    width: 120px;
+    cursor: pointer;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+.back-shadow{
+    box-shadow: 0 0 0.3rem 0.1rem rgba(0,0,0,.175);
+}
+
+.flag{
+    width: 560px;
+    height: 400px;
+}
+
+.details-margin{
+
+    margin-left: 7rem!important;
+}
+.btn{
+    width: 100px;
+    height: 25px;
+}
+@media only screen and  (max-width: 1050px) {
+
+    .details-country{
+        flex-flow: column wrap;
+    }
+    .details{
+        margin-left: 0!important;
+    }
+}
+
+
+
+@media only screen and  (max-width: 768px) {
+
+    .flag{
+        width: 360px;
+        height: 200px;
+    }
+
+}
+
+@media only screen and  (max-width: 440px) {
+    .flag{
+        width: 250px;
+        height: 150px;
+    }
+    .details{
+        width: 100% !important;
+    }
+    .details label.mb-2{
+        width: 100%;
+    }
+
+    .btn{
+        font-size: 12px!important;
+        width: 75px;
     }
 }
