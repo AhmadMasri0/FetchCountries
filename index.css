@@ -31,8 +31,9 @@ a, a:hover {
 }
 
 .card-img-top {
+
     object-fit: cover;
-    height: 160px;
+    height: 170px;
 }
 
 .card-body {
@@ -185,7 +186,7 @@ a, a:hover {
     display: block;
     padding-left: 10px !important;
     margin-left: -16px !important;
-    margin-top: 45px !important;
+    margin-top: 44px !important;
     padding-right: 8px!important;
     border: 0 !important;
     min-width: 12.5rem!important;
