@@ -3,10 +3,11 @@ body {
     font-family: 'Nunito Sans';
 }
 
-.navbar h1{
+.navbar h1 {
     font-size: 26px;
     font-weight: bold;
 }
+
 .search {
     width: 500px;
 }
@@ -15,43 +16,44 @@ body {
     width: 200px;
 }
 
-a, a:hover{
+a, a:hover {
     text-decoration: none;
     color: black;
 }
 
-.gx-5{
+.gx-5 {
     --bs-gutter-x: 5rem;
 }
 
-.card{
+.card {
     background-color: #fafafafa;
     margin-bottom: 70px;
 }
-.card-img-top{
+
+.card-img-top {
     object-fit: cover;
     height: 160px;
 }
 
-.card-body{
-border-bottom-left-radius: 5px;
-border-bottom-right-radius: 5px
+.card-body {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px
 }
 
-.fs-6{
- font-size: .9rem!important;
+.fs-6 {
+    font-size: .9rem !important;
 }
 
-.control-start{
+.control-start {
     margin-left: 72px;
 }
 
-.control-end{
+.control-end {
     margin-right: 72px;
 }
 
 @media only screen and (max-width: 862px) {
-    .search{
+    .search {
         width: 300px;
         /*margin-bottom: 35px;*/
     }
@@ -59,85 +61,97 @@ border-bottom-right-radius: 5px
 
 @media only screen and (max-width: 643px) {
 
-    .search{
+    .search {
         margin-bottom: 35px;
     }
 }
+
 @media only screen and (max-width: 519px) {
-    .navbar h1{
+    .navbar h1 {
         font-size: 20px;
         font-weight: bold;
     }
-    .navbar .me-4{
+
+    .navbar .me-4 {
         font-size: 14px;
     }
 }
+
 @media only screen and (max-width: 450px) {
-    .search{
+    .search {
         width: 100%;
     }
-    .control-start{
+
+    .control-start {
         margin-left: 39px;
     }
 
-    .control-end{
+    .control-end {
         font-size: 14px;
         margin-right: 39px;
     }
-    .control{
+
+    .control {
         width: 70%;
     }
 
-    .navbar h1{
+    .navbar h1 {
         font-size: 16px;
         font-weight: bold;
     }
 
-    .margin-sm{
+    .margin-sm {
         margin-right: 60px;
         margin-left: 60px;
     }
 }
 
-.back{
+.back {
     width: 120px;
     cursor: pointer;
     margin-top: 4rem;
     margin-bottom: 4rem;
 }
 
-.back-shadow{
-    box-shadow: 0 0 0.3rem 0.1rem rgba(0,0,0,.175);
+.back-shadow {
+    box-shadow: 0 0 0.3rem 0.1rem rgba(0, 0, 0, .175);
 }
 
-.flag{
+.flag {
     width: 560px;
     height: 400px;
 }
 
-.details-margin{
+.details-margin {
 
-    margin-left: 7rem!important;
+    margin-left: 7rem !important;
 }
-.btn{
+
+.btn1 {
     width: 100px;
     height: 25px;
 }
+
 @media only screen and  (max-width: 1050px) {
 
-    .details-country{
+    .flag {
+        width: 400px;
+        height: 400px;
+    }
+
+    .details-country {
         flex-flow: column wrap;
     }
-    .details{
-        margin-left: 0!important;
+
+    .details {
+        margin-left: 0 !important;
     }
 }
-
 
 
 @media only screen and  (max-width: 768px) {
 
-    .flag{
+    .flag {
         width: 360px;
         height: 200px;
     }
@@ -145,19 +159,36 @@ border-bottom-right-radius: 5px
 }
 
 @media only screen and  (max-width: 440px) {
-    .flag{
+    .flag {
         width: 250px;
         height: 150px;
     }
-    .details{
+
+    .details {
         width: 100% !important;
     }
-    .details label.mb-2{
+
+    .details label.mb-2 {
         width: 100%;
     }
 
-    .btn{
-        font-size: 12px!important;
+    .btn1 {
+        font-size: 12px !important;
         width: 75px;
     }
+}
+
+.dropdown{
+    cursor: pointer;
+}
+.dropdown:hover .dropdown-menu {
+    display: block;
+    padding-left: 10px !important;
+    margin-left: -16px !important;
+    margin-top: 45px !important;
+    padding-right: 8px!important;
+    border: 0 !important;
+    min-width: 12.5rem!important;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+
 }
