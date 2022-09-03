@@ -60,7 +60,7 @@ a, a:hover {
     }
 }
 
-@media only screen and (max-width: 643px) {
+@media only screen and (max-width: 660px) {
 
     .search {
         margin-bottom: 35px;
@@ -179,17 +179,53 @@ a, a:hover {
     }
 }
 
-.dropdown{
+.dropdown {
     cursor: pointer;
 }
+
 .dropdown:hover .dropdown-menu {
     display: block;
     padding-left: 10px !important;
     margin-left: -16px !important;
     margin-top: 44px !important;
-    padding-right: 8px!important;
+    padding-right: 8px !important;
     border: 0 !important;
-    min-width: 12.5rem!important;
-    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    min-width: 12.5rem !important;
+}
 
+.mood:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .075);
+}
+
+.big-x:hover {
+    background-color: blue;
+}
+
+.clear {
+    display: none;
+    font-size: 12px !important;
+
+}
+
+.clear:hover {
+    text-decoration: underline;
+}
+
+
+.dark-mode {
+    background-color: black !important;
+    color: white !important;
+}
+
+.shadow-dark-mode {
+    box-shadow: 0 0.125rem 0.25rem rgb(255 255 255) !important;
+}
+
+.dropdown-item-shadow:hover {
+    background-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.dark:hover {
+    box-shadow: 0 4px 2px -2px rgba(255 255 255);
 }

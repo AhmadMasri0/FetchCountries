@@ -9,69 +9,70 @@
     <link rel="stylesheet" href="./index.css">
     <link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
 </head>
-<body>
+<body class="toggle">
 
+<header class="navbar align-items-center pt-2 pb-2 bg-white shadow-sm d-flex flex-nowrap justify-content-between toggle">
 
-<header class="navbar align-items-center pt-2 pb-2 bg-white shadow-sm d-flex flex-nowrap justify-content-between">
-
-    <div class="navbar-brand control-start">
+    <div class="navbar-brand control-start toggle">
         <h1 class="mt-2">Where in the world?</h1>
     </div>
 
-    <div class="align-items-center control-end"><i class="bi bi-moon "></i> Dark mode</div>
+    <div class="align-items-center control-end mood toggle" id="mode" onclick="toggleMode()">
+        <i class="bi bi-moon toggle"></i> Dark mode
+    </div>
 
 </header>
 
 
-<div class="control-start back-shadow rounded d-flex justify-content-center p-2 fw-light align-items-center back">
-    <a href="./">
+<div class="control-start back-shadow rounded toggle d-flex justify-content-center p-2 fw-light align-items-center back">
+    <a href="./index.html" class="toggle">
         <i class="bi bi-arrow-left"> </i>
         <span class="ms-1"> Back</span>
     </a>
 </div>
 
 <div class="control-start control-end details-country d-flex flex-sm-column flex-md-row justify-content-between">
-    <img src="./flags/bel.svg" alt="bel" class="flag shadow-sm">
+    <img alt="" class="flag shadow-sm" id="img">
     <div class=" w-50 details details-margin">
-        <h2 class="fw-bold mt-5 mb-4 fs-2">Belgium</h2>
+        <h2 class="fw-bold mt-5 mb-4 fs-2" id="name"></h2>
         <div class="d-flex justify-content-between w-100 mb-5 flex-wrap">
             <div class="d-flex flex-column mb-4">
                 <label class="mb-2">
                     Native Name:
-                    <span class="fw-light">Belgie</span>
+                    <span class="fw-light" id="native-name"></span>
                 </label>
                 <label class="mb-2">
                     Population:
-                    <span class="fw-light">33,319,511</span>
+                    <span class="fw-light" id="population"></span>
                 </label>
                 <label class="mb-2">
                     Region:
-                    <span class="fw-light">Europe</span>
+                    <span class="fw-light" id="region"></span>
                 </label>
                 <label class="mb-2">
                     Sub Region:
-                    <span class="fw-light">Western Europe</span>
+                    <span class="fw-light" id="subregion"></span>
                 </label>
 
-                <label class="mb-2" id="capital">
+                <label class="mb-2">
                     Capital:
-                    <span class="fw-light">Brussels</span>
+                    <span class="fw-light" id="capital"></span>
                 </label>
             </div>
             <div class="d-flex flex-column">
 
                 <label class="mb-2">
                     Top Level Domain:
-                    <span class="fw-light">.be</span>
+                    <span class="fw-light" id="domain"></span>
                 </label>
                 <label class="mb-2">
                     Currencies:
-                    <span class="fw-light">Euro</span>
+                    <span class="fw-light" id="currency"></span>
                 </label>
 
                 <label class="mb-2">
                     Languages:
-                    <span class="fw-light">Dutch, French, German</span>
+                    <span class="fw-light" id="lang"></span>
                 </label>
             </div>
         </div>
@@ -79,26 +80,12 @@
             <label class="me-3 mb-2">
                 Border countries:
             </label>
-            <div class="d-flex mb-5">
-                <div class="back-shadow border-0 rounded fw-light fs-6 text-center align-center ps-1 pt-0 pe-1 pb-0 me-3 btn1">
-                    <a href="./">
-                        France
-                    </a>
-                </div>
-                <div class="back-shadow border-0 rounded fw-light fs-6 text-center align-center ps-1 pt-0 pe-1 pb-0 me-3 btn1">
-                    <a href="./">
-                        Germany
-                    </a>
-                </div>
-                <div class="back-shadow border-0 rounded fw-light fs-6 text-center align-center ps-1 pt-0 pe-1 pb-0 me-3 btn1">
-                    <a href="./">
-                        Netherlands
-                    </a>
-                </div>
+            <div class="d-flex mb-5" id="countries">
             </div>
         </div>
     </div>
 </div>
+<script src="details.js"></script>
 
 </body>
 </html>
