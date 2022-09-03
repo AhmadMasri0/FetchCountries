@@ -131,7 +131,7 @@ function activateMode() {
 
 function toggleMode() {
 
-    darkMode = !(darkMode || darkMode == 'true');
+    darkMode = !(darkMode === true || darkMode === 'true');
     localStorage.setItem('mode', darkMode);
     activateMode();
 }

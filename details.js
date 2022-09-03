@@ -35,11 +35,11 @@ async function fetchCountryDetails() {
         const temp = (await r.json())[0];
         const countryName = temp.name.official;
         const div = document.createElement('div');
-        div.className = "back-shadow border-0 rounded fw-light fs-6 text-center " +
-            "align-center ps-1 pt-0 pe-1 pb-0 me-3 btn1 " + (darkMode == 'true' && 'shadow-dark-mode');
+        div.className = "back-shadow border-0 mb-3 rounded fw-light fs-6 text-center " +
+            "align-center ps-1 pe-1 me-3 btn1 " + (darkMode == 'true' && 'shadow-dark-mode');
         const a = document.createElement('a');
         a.innerText = countryName
-        a.className = 'toggle ' + (darkMode == 'true' && 'dark-mode');
+        a.className = 'toggle align-middle align-middle1 ' + (darkMode == 'true' && 'dark-mode');
         a.href = "./details.html?name=" + countryName;
         div.appendChild(a);
         document.getElementById('countries').appendChild(div);
