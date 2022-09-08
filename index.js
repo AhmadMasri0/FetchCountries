@@ -1,142 +1,141 @@
-let darkMode = localStorage.getItem('mode') || false;
+let darkMode = JSON.parse(localStorage.getItem('mode'));
 
-console.log(darkMode)
+
+let allCountries = [];
+let currCountries = [];
 
 function displayCountries(countries) {
 
     document.getElementById('container').innerText = '';
     for (let country of countries) {
-        const capital = country.capital[0];
-        const name = country.name.official;
+        const capital = country.capital ? country.capital[0] : '-';
+        const name = country.name.common;
         const flag = country.flags.svg;
         const population = country.population;
         const region = country.continents[0];
 
-        const card = document.createElement('div');
-        card.className = "card col-lg-3 col-md-4 col-sm-6 col-xs-12 border-0 toggle " +
-            ((darkMode === 'true' || darkMode === true) && "dark-mode");
+        const card = `
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 border-0"> 
+            <div class="card shadow-sm border-0" id="card">
+                <a href="./details.html?name=${name}">
+                    <img src="${flag}" alt="${name}" class="card-img-top">
+                    <div class="card-body bg-white toggle ${(darkMode) && "element-toggle "}">
+                        <h5 class="card-title mb-3 mt-2 fw-bold">
+                            ${name}
+                        </h5>
+                        <p class="card-text mb-1 fs-6 fw-semibold"> 
+                            Population: 
+                            <span class="fw-light">
+                                ${population.toLocaleString('en-US')}
+                            </span>
+                        </p>
+                         <p class="card-text mb-1 fs-6 fw-semibold"> 
+                            Region: 
+                            <span class="fw-light">
+                                ${region}
+                            </span>
+                        </p>
+                         <p class="card-text mb-1 fs-6 fw-semibold"> 
+                            Capital: 
+                            <span class="fw-light">
+                                ${capital}
+                            </span>
+                        </p>
+                    </div> 
+                </a>
+            </div>
+        </div>
+        `;
 
-        const a = document.createElement('a');
-        a.href = "./details.html?name=" + name;
+        document.getElementById('container').insertAdjacentHTML('beforeend', card);
 
-        const img = document.createElement('img');
-        img.className = "card-img-top shadow-sm";
-        img.src = flag;
 
-        const innerDiv = document.createElement('div');
-        innerDiv.className = `card-body shadow-sm bg-white toggle 
-        ${(darkMode === 'true' || darkMode === true) && "dark-mode shadow-dark-mode"}`;
-
-        const h5 = document.createElement('h5');
-        h5.className = "card-title mb-3 mt-2 fw-bold";
-        h5.innerText = name;
-
-        const p1 = document.createElement('p');
-        p1.innerText = "Population: ";
-        p1.className = "card-text mb-1 fs-6";
-        const span1 = document.createElement('span');
-        span1.className = "fw-light";
-        span1.innerText = population.toLocaleString('en-US');
-        p1.appendChild(span1);
-
-        const p2 = document.createElement('p');
-        p2.innerText = "Region: ";
-        p2.className = "card-text mb-1 fs-6";
-        const span2 = document.createElement('span');
-        span2.className = "fw-light";
-        span2.innerText = region;
-        p2.appendChild(span2);
-
-        const p3 = document.createElement('p');
-        p3.innerText = "Capital: ";
-        p3.className = "card-text mb-1 fs-6";
-        const span3 = document.createElement('span');
-        span3.className = "fw-light";
-        span3.innerText = capital;
-        p3.appendChild(span3);
-
-        innerDiv.appendChild(h5);
-        innerDiv.appendChild(p1);
-        innerDiv.appendChild(p2);
-        innerDiv.appendChild(p3);
-
-        a.appendChild(img);
-        a.appendChild(innerDiv);
-
-        card.appendChild(a);
-        document.getElementById('container').appendChild(card);
     }
 }
 
-async function fetchAllCountries() {
 
-    const res = await fetch("https://restcountries.com/v3.1/all");
-    const countries = await res.json();
 
-    displayCountries(countries);
-
-}
-
-fetchAllCountries();
+search();
 
 function clearFilter() {
-    document.getElementById('filter').innerText = 'Filter by a Region';
+    document.getElementById('filter').innerText = 'Filter by Region';
     document.getElementById('clear').style.display = 'none';
-    fetchAllCountries();
+    search();
 }
 
-async function filterByRegion(region) {
+function filterByRegion(region) {
+
     document.getElementById('clear').style.display = 'block';
     document.getElementById('filter').innerText = region;
-    const res = await fetch("https://restcountries.com/v3.1/region/" + region);
-    const countries = await res.json();
-    displayCountries(countries);
+
+    const c = allCountries.filter(country => {
+        if (country.region.includes(region)) {
+            return country;
+        }
+    });
+
+    currCountries = c;
+
+    displayCountries(c);
 }
 
 
 async function search() {
     const search = document.getElementById('search').value;
-    console.log(search)
-    let res;
-    if (search === '')
-        res = await fetch("https://restcountries.com/v3.1/all");
-    else
-        res = await fetch("https://restcountries.com/v3.1/name/" + search);
+    const isFilterCleared = document.getElementById('filter').innerText === 'Filter by Region';
 
-    const countries = await res.json();
-    displayCountries(countries);
+    let res;
+
+    if (search === '' && isFilterCleared) {
+        res = await fetch("https://restcountries.com/v3.1/all");
+    } else if (search === '') {
+        res = currCountries;
+    } else {
+        res = currCountries.filter(country => {
+            if (country.name.official.toLowerCase().includes(search.toLowerCase())) {
+                return country;
+            }
+        });
+    }
+
+    const updatedSearch = document.getElementById('search').value;
+
+    if ((updatedSearch === search) &&
+        (search !== '' || (search === '' && !isFilterCleared))) {
+        displayCountries(res);
+    } else if (updatedSearch === search && search === '') {
+        const countries = await res.json();
+        allCountries = countries;
+        currCountries = allCountries;
+        displayCountries(allCountries);
+    }
 }
 
 
 function activateMode() {
-    if (darkMode === true || darkMode === 'true') {
-        document.getElementById('mode').innerHTML = '<i class="bi bi-moon"></i> Light Mode';
-    } else
-        document.getElementById('mode').innerHTML = '<i class="bi bi-moon "></i> Dark Mode';
+    const mode = document.getElementById('mode');
+    if (darkMode) {
+        mode.innerHTML = '<i class="bi bi-moon-fill"></i> Light Mode';
+        mode.classList.remove('fw-bold');
+    } else {
+        mode.innerHTML = '<i class="bi bi-moon "></i> Dark Mode';
+        mode.classList.add('fw-bold');
+    }
+    document.body.classList.toggle('bg-toggle');
 
     let elements = document.getElementsByClassName('toggle');
     for (let element of elements) {
-        element.classList.toggle('dark-mode');
+        element.classList.toggle('element-toggle');
     }
-    elements = document.getElementsByClassName('shadow-sm');
-    for (let element of elements) {
-        element.classList.toggle('shadow-dark-mode');
-    }
-    elements = document.getElementsByClassName('dropdown-item');
-    for (let element of elements) {
-        element.classList.toggle('dropdown-item-shadow');
-    }
-    document.getElementById('mode').classList.toggle('dark');
 }
 
 function toggleMode() {
 
-    darkMode = !(darkMode === true || darkMode === 'true');
+    darkMode = !darkMode;
     localStorage.setItem('mode', darkMode);
     activateMode();
 }
 
-if (darkMode == 'true') {
+if (darkMode) {
     activateMode();
-    console.log('ggggg')
 }

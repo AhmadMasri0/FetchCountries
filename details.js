@@ -2,7 +2,7 @@ const params = new URLSearchParams(window.location.search);
 
 let name = params.get("name");
 
-let darkMode = localStorage.getItem('mode') || false;
+let darkMode = JSON.parse(localStorage.getItem('mode'));
 
 async function fetchCountryDetails() {
 
@@ -35,11 +35,11 @@ async function fetchCountryDetails() {
         const temp = (await r.json())[0];
         const countryName = temp.name.official;
         const div = document.createElement('div');
-        div.className = "back-shadow border-0 mb-3 rounded fw-light fs-6 text-center " +
-            "align-center ps-1 pe-1 me-3 btn1 " + (darkMode == 'true' && 'shadow-dark-mode');
+        div.className = "toggle back-shadow border-0 mb-3 rounded fw-light fs-6 text-center " +
+            "align-center ps-1 pe-1 me-3 btn1 " + (darkMode && 'element-toggle');
         const a = document.createElement('a');
         a.innerText = countryName
-        a.className = 'toggle align-middle align-middle1 ' + (darkMode == 'true' && 'dark-mode');
+        a.className = 'country align-middle align-middle1 ' + (darkMode && 'text-toggle');
         a.href = "./details.html?name=" + countryName;
         div.appendChild(a);
         document.getElementById('countries').appendChild(div);
@@ -49,37 +49,34 @@ async function fetchCountryDetails() {
 
 fetchCountryDetails();
 
-if (darkMode == 'true') {
+if (darkMode) {
     activateMode();
 }
 
 function activateMode() {
-
-    if (darkMode === true || darkMode === 'true')
-        document.getElementById('mode').innerHTML = '<i class="bi bi-moon"></i> Light Mode';
-    else
-        document.getElementById('mode').innerHTML = '<i class="bi bi-moon "></i> Dark Mode';
+    const mode = document.getElementById('mode');
+    if (darkMode) {
+        mode.innerHTML = '<i class="bi bi-moon-fill"></i> Light Mode';
+        mode.classList.remove('fw-bold');
+    } else {
+        mode.innerHTML = '<i class="bi bi-moon "></i> Dark Mode';
+        mode.classList.add('fw-bold');
+    }
+    document.body.classList.toggle('bg-toggle');
 
     let elements = document.getElementsByClassName('toggle');
     for (let element of elements) {
-        element.classList.toggle('dark-mode');
+        element.classList.toggle('element-toggle');
     }
-
-    elements = document.getElementsByClassName('shadow-sm');
+    elements = document.getElementsByClassName('country');
     for (let element of elements) {
-        element.classList.toggle('shadow-dark-mode');
+        element.classList.toggle('text-toggle');
     }
-
-    elements = document.getElementsByClassName('back-shadow');
-    for (let element of elements) {
-        element.classList.toggle('shadow-dark-mode');
-    }
-    document.getElementById('mode').classList.toggle('dark');
 }
 
 function toggleMode() {
 
-    darkMode = !(darkMode === 'true' || darkMode === true);
+    darkMode = !darkMode;
     localStorage.setItem('mode', darkMode);
 
     activateMode();
