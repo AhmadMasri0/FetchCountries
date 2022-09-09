@@ -46,14 +46,15 @@
          data-bs-toggle="dropdown">
         <button id="filter" class="btn btn-secondary border-0 pt-0 pb-0 bg-white text-black toggle"
                 type="button" aria-expanded="false">
-            Filter by Region
+            Filter by
         </button>
         <ul class="dropdown-menu toggle shadow-sm">
-            <li class="dropdown-item toggle" onclick="filterByRegion('Africa')">Africa</li>
-            <li class="dropdown-item toggle" onclick="filterByRegion('America')">America</li>
-            <li class="dropdown-item toggle" onclick="filterByRegion('Europe')">Europe</li>
-            <li class="dropdown-item toggle" onclick="filterByRegion('Asia')">Asia</li>
-            <li class="dropdown-item mb-1 toggle" onclick="filterByRegion('Oceania')">Oceania</li>
+            <li class="dropdown-item toggle" onclick="filter('Africa')">Africa</li>
+            <li class="dropdown-item toggle" onclick="filter('America')">America</li>
+            <li class="dropdown-item toggle" onclick="filter('Europe')">Europe</li>
+            <li class="dropdown-item toggle" onclick="filter('Asia')">Asia</li>
+            <li class="dropdown-item mb-1 toggle" onclick="filter('Oceania')">Oceania</li>
+            <li class="dropdown-item mb-1 toggle" onclick="filter('Favourites')">Favourites</li>
             <li class="clear text-end fw-light" id="clear" onclick="clearFilter()">Clear filter</li>
         </ul>
         <i class="fa-solid fa-angle-down fs-6 pt-1"></i>
@@ -63,9 +64,17 @@
 </div>
 
 
-<div class="control-start control-end margin-sm control ">
-    <div class="row  gx-5 gy-5 justify-content-sm-start " id="container">
+<div class="control-start d-flex justify-content-between control-end margin-sm control">
+    <div class="col-md-3 d-flex flex-column shadow-sm bg-white me-4 fav-container toggle">
+        <h5 class="m-4 fw-bold">
+            Favourites
+        </h5>
+        <div class="d-flex flex-column m-4 mt-2 favourites" ondrop="drop(event)" ondragover="allowDrop(event)"
+             ondragenter="dragEnter(event)" ondragleave="dragLeave(event)" id="favourites">
+
+        </div>
     </div>
+    <div class="row gx-5 justify-content-sm-start fav-container" id="container"></div>
 </div>
 
 <script src="index.js"></script>
