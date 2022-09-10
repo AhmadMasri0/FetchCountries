@@ -4,6 +4,8 @@ let favourites = JSON.parse(localStorage.getItem('fav')) || [];
 let favCountries = [];
 let allCountries = [];
 let currCountries = [];
+let addedCountries = [];
+
 let isFirstDisplay = true;
 
 function displayCountries(countries) {
@@ -18,14 +20,22 @@ function displayCountries(countries) {
         const region = country.continents[0];
         const id = country.cca2;
 
-        if (favourites.includes(id) && isFirstDisplay) {
-            addToList(flag, name, id);
-            favCountries.push(country);
+        let isFav = false;
+        if (favourites.includes(id)) {
+            if (isFirstDisplay) {
+                favCountries.push(country);
+            }
+            if (!addedCountries.includes(id)) {
+                addedCountries.push(id);
+                addToList(flag, name, id);
+            }
+            isFav = true;
         }
         const card = `
         <div class="col ${countries.length === 2 && 'col-md-6'} ${countries.length !== 1 && 'col-md-4'} border-0 mb-5"> 
-            <div class="card shadow-sm border-0" id="card">
-                <a href="./details.html?name=${name}" draggable="true" id="${id}"
+            <div class="card shadow-sm border-0 toggle ${(darkMode) && "element-toggle"}" id="card">
+                <a class=""
+                 href="./details.html?name=${name}" draggable="true" id="${id}"
                  ondragstart={dragStart(event)} ondragend={dragEnd(event)}>
                     <img src="${flag}" alt="${name}" class="card-img-top" id="${id}">
                     <div class="card-body bg-white toggle ${(darkMode) && "element-toggle "}">
@@ -52,18 +62,15 @@ function displayCountries(countries) {
                         </p>
                     </div> 
                 </a>
+                <i class="bi bi-star-fill align-self-end me-2" style="color: ${isFav ? 'orange' : 'lightgray'}" onclick={toggleFavCountry(event)} id="${id}"></i>
             </div>
         </div>
         `;
-
         document.getElementById('container').insertAdjacentHTML('beforeend', card);
     }
 
     isFirstDisplay = false;
 }
-
-
-search();
 
 function clearFilter() {
     document.getElementById('filter').innerText = 'Filter by';
@@ -80,17 +87,11 @@ function filter(filter) {
     if (filter === 'Favourites') {
         c = favCountries;
     } else {
-        c = allCountries.filter(country => {
-            if (country.region.includes(filter)) {
-                return country;
-            }
-        });
+        c = allCountries.filter(country => country.region.includes(filter));
     }
     currCountries = c;
-
     displayCountries(c);
 }
-
 
 async function search() {
     const search = document.getElementById('search').value;
@@ -103,26 +104,21 @@ async function search() {
     } else if (search === '') {
         res = currCountries;
     } else {
-        res = currCountries.filter(country => {
-            if (country.name.official.toLowerCase().includes(search.toLowerCase())) {
-                return country;
-            }
-        });
+        res = currCountries.filter(country => country.name.common.toLowerCase().includes(search.toLowerCase()));
     }
 
     const updatedSearch = document.getElementById('search').value;
 
-    if ((updatedSearch === search) &&
-        (search !== '' || (search === '' && !isFilterCleared))) {
-        displayCountries(res);
-    } else if (updatedSearch === search && search === '') {
-        const countries = await res.json();
-        allCountries = countries;
-        currCountries = allCountries;
-        displayCountries(allCountries);
+    if (updatedSearch === search) {
+        if (search !== '' || (search === '' && !isFilterCleared)) {
+            displayCountries(res);
+        } else if (search === '') {
+            allCountries = await res.json();
+            currCountries = allCountries;
+            displayCountries(allCountries);
+        }
     }
 }
-
 
 function activateMode() {
     const mode = document.getElementById('mode');
@@ -148,11 +144,6 @@ function toggleMode() {
     activateMode();
 }
 
-if (darkMode) {
-    activateMode();
-}
-
-
 function dragStart(event) {
     event.dataTransfer.setData("Text", event.target.id);
     event.target.style.opacity = '0.5';
@@ -172,23 +163,51 @@ function dragLeave(event) {
     event.target.style.border = 'none';
 }
 
+function allowDrop(event) {
+    event.preventDefault();
+}
+
 function drop(event) {
     event.preventDefault();
-    if (event.target.className.includes("favourites")) {
 
-        const data = event.dataTransfer.getData("Text");
-        const node = document.getElementById(data).cloneNode(true);
-        node.style.opacity = '1';
-        event.target.style.border = 'none';
+    const id = event.dataTransfer.getData("Text");
+    const node = document.getElementById(id).cloneNode(true);
+    node.style.opacity = '1';
+    event.target.style.border = 'none';
 
-        if (!favourites.includes(data)) {
-            const appendedNode = formatFavourite(node.childNodes[1].currentSrc, node.childNodes[3].childNodes[1].innerText, data);
-            favourites = [...favourites, data];
-            favCountries = [...favCountries, currCountries.find(e => e.cca2 === data)];
-            localStorage.setItem('fav', JSON.stringify(favourites));
-            event.target.insertAdjacentHTML('beforeend', appendedNode);
+    if (!favourites.includes(id)) {
+        checkStar(id, 'orange');
+        addCountry(id);
+    }
+}
+
+function toggleFavCountry(event) {
+    const id = event.target.id;
+    const country = favourites.find(c => c === id);
+    if (country) {
+        removeCountry(id);
+        event.target.style.color = 'lightgray';
+        document.getElementById(id).remove();
+    } else {
+        addCountry(id);
+        event.target.style.color = 'orange';
+    }
+}
+
+function checkStar(id, color) {
+    const starElements = document.getElementsByTagName('i');
+    for (let s of starElements) {
+        if (s.id === id) {
+            s.style.color = color;
         }
     }
+}
+
+function addToList(src, name, id) {
+
+    const appendedNode = formatFavourite(src, name, id);
+
+    document.getElementById('favourites').insertAdjacentHTML('beforeend', appendedNode);
 }
 
 function formatFavourite(src, name, id) {
@@ -199,26 +218,36 @@ function formatFavourite(src, name, id) {
                         ${name}
                     </p>
                 </div>
-                <span class="rounded me-2 remove toggle ${(darkMode) && "element-toggle"}" onclick="removeCountry(event)" id="${id}">X</span>
+                <span class="rounded me-2 remove toggle ${(darkMode) && "element-toggle"}" onclick="removeCountryFromList(event)" id="${id}">X</span>
             </div>`;
 }
 
-function addToList(src, name, id) {
-
-    const appendedNode = formatFavourite(src, name, id);
-
-    document.getElementById('favourites').insertAdjacentHTML('beforeend', appendedNode);
-}
-
-function allowDrop(event) {
-    event.preventDefault();
-}
-
-function removeCountry(event) {
-
-    const id = event.target.parentElement.id;
+function removeCountry(id) {
     favourites = favourites.filter(e => e !== id);
+    addedCountries = addedCountries.filter(c => c !== id);
     localStorage.setItem('fav', JSON.stringify(favourites));
     favCountries = favCountries.filter(c => c.cca2 !== id);
+}
+
+function addCountry(id) {
+    favourites = [...favourites, id];
+    const country = currCountries.find(e => e.cca2 === id);
+    addToList(country.flags.svg, country.name.common, country.cca2);
+    favCountries = [...favCountries, country];
+    localStorage.setItem('fav', JSON.stringify(favourites));
+    addedCountries.push(id);
+}
+
+function removeCountryFromList(event) {
+
+    const id = event.target.parentElement.id;
+    removeCountry(id);
+    checkStar(id, 'lightgray');
     document.getElementById(id).remove();
+}
+
+search();
+
+if (darkMode) {
+    activateMode();
 }

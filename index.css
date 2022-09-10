@@ -43,7 +43,7 @@ a, a:hover {
     height: 170px;
 }
 
-.card-body {
+.card-body, a.toggle {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -187,6 +187,13 @@ a, a:hover {
         width: 100% !important;
     }
 
+    .fav-container {
+        display: none !important;
+    }
+
+    .bi-star-fill {
+        display: block !important;
+    }
 }
 
 @media only screen and  (max-width: 440px) {
@@ -259,7 +266,7 @@ a, a:hover {
 }
 
 .dark:hover {
-    box-shadow: 0 4px 2px -2px rgba(255 255 255);
+    box-shadow: 0 4px 2px -2px rgba(255 255 255 0.5);
 }
 
 label {
@@ -267,7 +274,7 @@ label {
 }
 
 
-.fav-container {
+.child-container {
     height: 650px;
     overflow-y: auto;
 }
@@ -285,11 +292,11 @@ label {
 }
 
 ::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 1px 0px 2px -1px rgba(0, 0, 0, 0.15),
-    inset -1px 0px 2px -1px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: inset 1px 0 2px -1px rgba(0, 0, 0, 0.15),
+    inset -1px 0 2px -1px rgba(0, 0, 0, 0.15);
 
-    box-shadow: inset 1px 0px 2px -1px rgba(0, 0, 0, 0.15),
-    inset -1px 0px 2px -1px rgba(0, 0, 0, 0.15);
+    box-shadow: inset 1px 0 2px -1px rgba(0, 0, 0, 0.15),
+    inset -1px 0 2px -1px rgba(0, 0, 0, 0.15);
 
 }
 
@@ -301,8 +308,8 @@ label {
     background-clip: content-box;
 }
 
-.remove{
-    width: 15px!important;
+.remove {
+    width: 15px !important;
     height: 13px;
     padding: 2px 5px 5px;
     font-size: 7px;
@@ -311,6 +318,47 @@ label {
     text-align: center;
 }
 
-.remove:hover{
+.remove:hover {
     cursor: pointer;
+}
+
+.bi-star-fill {
+    cursor: pointer;
+    display: none;
+}
+
+@media only screen and  (min-width: 665px) {
+    .card-body {
+        height: 300px!important;
+    }
+}
+
+@media only screen and  (min-width: 768px) {
+    .card-body {
+        height: 390px!important;
+    }
+}
+
+@media only screen and  (min-width: 860px) {
+    .card-body {
+        height: 314px!important;
+    }
+}
+
+@media only screen and  (min-width: 987px) {
+    .card-body {
+        height: 250px!important;
+    }
+}
+
+@media only screen and  (min-width: 1064px) {
+    .card-body {
+        height: 200px!important;
+    }
+}
+
+@media only screen and  (min-width: 1250px) {
+    .card-body {
+        height: 160px!important;
+    }
 }
