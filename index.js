@@ -33,7 +33,6 @@ function displayCountries(countries) {
             }
             isFav = true;
         }
-        console.log(countries.length === 2)
         const card = `
         <div class="${countries.length === 2 ? 'col-md-6' : countries.length === 1 ? 'col-12' : classes}  border-0 mb-5"> 
             <div class="card shadow-sm border-0 toggle ${(darkMode) && "element-toggle"}" id="card">
