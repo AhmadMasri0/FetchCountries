@@ -12,6 +12,8 @@ function displayCountries(countries) {
 
     document.getElementById('container').innerText = '';
 
+    const classes = 'col-lg-4 col-md-4 col-sm-6';
+
     for (let country of countries) {
         const capital = country.capital ? country.capital[0] : '-';
         const name = country.name.common;
@@ -31,8 +33,9 @@ function displayCountries(countries) {
             }
             isFav = true;
         }
+        console.log(countries.length === 2)
         const card = `
-        <div class="col ${countries.length === 2 && 'col-md-6'} ${countries.length !== 1 && 'col-md-4'} border-0 mb-5"> 
+        <div class="${countries.length === 2 ? 'col-md-6' : countries.length === 1 ? 'col-12' : classes}  border-0 mb-5"> 
             <div class="card shadow-sm border-0 toggle ${(darkMode) && "element-toggle"}" id="card">
                 <a class=""
                  href="./details.html?name=${name}" draggable="true" id="${id}"
@@ -62,7 +65,7 @@ function displayCountries(countries) {
                         </p>
                     </div> 
                 </a>
-                <i class="bi bi-star-fill align-self-end me-2" style="color: ${isFav ? 'orange' : 'lightgray'}" onclick={toggleFavCountry(event)} id="${id}"></i>
+                <i class="bi bi-star-fill align-self-end mb-2 me-2" style="color: ${isFav ? 'orange' : 'lightgray'}" onclick={toggleFavCountry(event)} id="${id}"></i>
             </div>
         </div>
         `;
@@ -130,7 +133,6 @@ function activateMode() {
         mode.classList.add('fw-bold');
     }
     document.body.classList.toggle('bg-toggle');
-
     let elements = document.getElementsByClassName('toggle');
     for (let element of elements) {
         element.classList.toggle('element-toggle');

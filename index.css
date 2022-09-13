@@ -291,6 +291,11 @@ label {
     background-color: rgb(248, 249, 250);
 }
 
+.dark-Scrollbar {
+    --scrollbar-background: #2b3945 !important;
+    width: 200px!important;
+}
+
 ::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 1px 0 2px -1px rgba(0, 0, 0, 0.15),
     inset -1px 0 2px -1px rgba(0, 0, 0, 0.15);
@@ -329,7 +334,7 @@ label {
 
 @media only screen and  (min-width: 665px) {
     .card-body {
-        height: 300px!important;
+        height: 160px!important;
     }
 }
 
@@ -360,5 +365,11 @@ label {
 @media only screen and  (min-width: 1250px) {
     .card-body {
         height: 160px!important;
+    }
+}
+@media only screen and (max-width: 900px) {
+
+    .card-title{
+        font-size: 16px!important;
     }
 }
