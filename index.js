@@ -214,7 +214,7 @@ function addToList(src, name, id) {
 function formatFavourite(src, name, id) {
     return `<div class="d-flex align-items-center justify-content-between mb-2"  id="${id}">
                 <div class="d-flex align-items-center">
-                     <img class="w-25 rounded m-0" src="${src}">
+                     <img class="rounded m-0" style="height: 25px; width: 40px" src="${src}">
                      <p class="m-0 ms-1 fw-bold" style="font-size: 0.6rem">
                         ${name}
                     </p>
